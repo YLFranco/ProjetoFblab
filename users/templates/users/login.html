@@ -1,0 +1,116 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block head %}
+    <style>
+        html, body, .loginbox {
+            height: 100%;
+        }
+        
+        .loginbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-form {
+            width: 100%;
+            max-width: 450px;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.15);
+            background-color: #fff;
+            transition: transform 0.3s ease;
+        }
+        
+        .login-form:hover {
+            transform: translateY(-5px);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .login-header img {
+            max-width: 80px;
+            margin-bottom: 15px;
+        }
+
+        .login-footer {
+            margin-top: 25px;
+            text-align: center;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .form-floating {
+            margin-bottom: 20px;
+        }
+        
+        .login-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .forgot-password {
+            text-align: right;
+            margin-top: -15px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+    </style>
+{% endblock %}
+
+{% block content%}
+    <div class="loginbox">
+        <div class="login-form">
+            <div class="login-header">
+                <h1 class="mb-2">Bem-vindo</h1>
+                <p class="text-muted">Entre com suas credenciais para acessar o sistema</p>
+            </div>
+        
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <form action="{% url 'users:login' %}" method="post">
+                {% csrf_token %}
+                
+                <div class="form-floating">
+                    <input class="form-control form-control-lg" type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="13" required id="id_username" placeholder="Número de Matrícula">
+                    <label for="id_username">Número de Matrícula</label>
+                </div>
+                
+                <div class="form-floating">
+                    <input class="form-control form-control-lg" type="password" name="password" autocomplete="current-password" required id="id_password" placeholder="Senha">
+                    <label for="id_password">Senha</label>
+                </div>
+                
+                <div class="forgot-password">
+                    <a href="{% url 'users:password_reset' %}"><i class="fas fa-key me-1"></i>Esqueci minha senha</a>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary btn-lg login-btn">Entrar</button>
+                </div>
+                
+                <div class="login-footer">
+                    <p>Não tem uma conta? <a href="{% url 'users:register' %}">Registre-se aqui</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

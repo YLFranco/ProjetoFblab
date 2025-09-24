@@ -1,0 +1,8 @@
+<p>
+<a href "{% url 'index'%}">LOGIN</a>
+{%if user.is_autheticated %}
+    Bem vindo, {{ user.username }}!
+{% else %}
+    <a href="{% url 'login' %}">Entrar</a>
+{% endif %}
+</p>
