@@ -24,4 +24,6 @@ urlpatterns = [
     path('', views.visualizar_login),
     path('logs/', include('logs.urls', namespace='logs')),
     path('users/', include('users.urls', namespace='users')),
+    path('controle/', include('ar_condicionado.urls')),
+
 ]
