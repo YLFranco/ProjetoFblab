@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class = "container">
+           <br><br>
+        <form action="{% url 'criar_ar_condicionado' %}" method="post">  {% csrf_token %} 
+            <label for="">Nome do Ar Condicionado</label>
+            <input type="text" name="nome" class="form-control" placeholder="Nome do Ar Condicionado">
+            <br>
+            <label for="">Sala</label>
+            <input type="text" name="sala" class="form-control" placeholder="sala">
+            <br>
+            <input type="submit" value="Registrar Ar Condicionado" class="btn btn-success">
+        </form>
+
+        <hr>
+          <table class="table">
+            <thead>
+              <tr>    
+                <th scope="col">Nome</th>
+                <th scope="col">Sala</th>
+                <th scope="col">Atualizar</th>      
+                <th scope="col">Deletar</th>      
+              </tr>
+            </thead>
+            <tbody>
+              {% for ar in ar_condicionado %}
+                <tr>
+                  <td>
+                    <form action"{% url 'atualizar_ar_condicionado', ar.id%}">/
+                    <input type="text" name = "nome" value="{{i.nome}}" class= form-control></td>
+                  <td>
+                    <input type="text" name = "sala" value="{{i.sala}}" class= form-control>
+                    
+                  </td>
+                  <td>
+                    <input type="submit" class="btn btn-primary">
+
+                  </td>
+                  <td>
+                    <a href="{% url 'deletar_ar_condicionado' ar.id %}" class="btn btn-danger">Deletar</a>
+
+                  </td>
+                  </tr>
+              {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
+</html>
